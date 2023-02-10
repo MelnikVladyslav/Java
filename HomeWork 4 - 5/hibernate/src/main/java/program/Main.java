@@ -40,6 +40,7 @@ public class Main {
         context.close();
     }
 
+    //Add question
     private static void addQuestion() {
         Scanner in = new Scanner(System.in);
         Session context = HibernateSessionFactoryUtil.getSessionFactory().openSession();
@@ -63,6 +64,26 @@ public class Main {
             System.out.print("Додати наступний варінат(1-так, 0-вийти)->_");
             action=in.nextLine();
         }while(!action.equals("0"));
+        tx.commit();
+        context.close();
+    }
+
+    //Delete question
+    private static void deleteQuestion() {
+        Scanner in = new Scanner(System.in);
+        Session context = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx = context.beginTransaction();
+        System.out.println("Вкажіть питання:");
+        int questionId = in.nextInt();
+        Session session ;
+        MyObject myObject ;
+
+        session = sessionFactory.getCurrentSession();
+        myObject = (MyObject)session.load(MyObject.class,id);
+        session.delete(myObject);
+
+        //This makes the pending delete to be done
+        session.flush() ;
         tx.commit();
         context.close();
     }
