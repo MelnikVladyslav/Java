@@ -14,10 +14,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Привіт!");
-        //insertRole();
-        //showRoles();
-        //addQuestion();
+        showQuestions();
     }
     private static void insertRole() {
         Scanner in = new Scanner(System.in);
@@ -36,6 +33,18 @@ public class Main {
         for (Role role : roles)
         {
             System.out.println(role);
+        }
+        context.close();
+    }
+
+    //Show questions
+    private static void showQuestions() {
+        Session context = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query query = context.createQuery("FROM Question");
+        List<Question> questions = query.list();
+        for (Question question : questions)
+        {
+            System.out.println(question);
         }
         context.close();
     }
