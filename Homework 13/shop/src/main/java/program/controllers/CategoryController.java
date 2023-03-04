@@ -47,6 +47,7 @@ public class CategoryController {
         CategoryEntity category = categoryRepository.findById(categoryId).get();
         category.setName(model.getName());
         var upatedCategory = categoryRepository.save(category);
+        var image = storageService.save(model.getBase64());
         return new ResponseEntity<>(upatedCategory, HttpStatus.OK);
     }
     @DeleteMapping("{id}")
